@@ -1,42 +1,115 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* App-specific styles for the furniture store */
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
+/* Custom animations */
+@keyframes fadeInUp {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(30px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-.card {
-  padding: 2em;
+/* Hero section animations */
+.hero-content {
+  animation: slideInLeft 0.8s ease-out;
 }
 
-.read-the-docs {
-  color: #888;
+.hero-image {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* Product card hover effects */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom gradient backgrounds for placeholders */
+.gradient-placeholder {
+  background: linear-gradient(135deg, #f5f5f4 0%, #e7e5e4 100%);
+}
+
+/* Typography enhancements */
+.heading-primary {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.heading-secondary {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Carousel specific styles */
+.carousel-slide {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.carousel-slide.prev {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.carousel-slide.next {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Carousel navigation buttons */
+.carousel-nav-btn {
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.carousel-nav-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Carousel dots */
+.carousel-dot {
+  transition: all 0.2s ease;
+}
+
+.carousel-dot.active {
+  transform: scale(1.25);
+}
+
+/* Smooth entrance animations for carousel content */
+.carousel-content {
+  animation: slideInFromLeft 0.8s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
