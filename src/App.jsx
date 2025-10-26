@@ -284,8 +284,8 @@ function App() {
             className='absolute inset-0 landing-gradient-overlay'
             style={{
               background: `linear-gradient(to bottom,
-                rgba(0, 0, 0, 0.6) 0%,
-                rgba(0, 0, 0, 0.5) 40%,
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(0, 0, 0, 0.1) 40%,
                 rgba(0, 0, 0, 0.3) 70%,
                 ${colors.darkBg} 100%)`,
             }}
