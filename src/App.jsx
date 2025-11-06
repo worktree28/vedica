@@ -3,82 +3,96 @@ import { useState, useEffect } from 'react';
 import logo from './assets/logo.png';
 import logoSvg from './assets/logo.svg';
 import landingImage from './assets/landing.JPG';
-
-// Import Trivarna project images
-import trivarna1 from './assets/trivarna/PHOTO-2024-04-26-17-03-33 2.JPG';
-import trivarna2 from './assets/trivarna/PHOTO-2024-04-26-17-03-33.JPG';
-import trivarna3 from './assets/trivarna/PHOTO-2024-04-26-17-03-34.JPG';
-import trivarna4 from './assets/trivarna/PHOTO-2024-04-26-17-03-35.JPG';
-import trivarna5 from './assets/trivarna/PHOTO-2024-05-09-20-19-15 2.JPG';
-import trivarna6 from './assets/trivarna/PHOTO-2024-05-09-20-19-15 3.JPG';
-import trivarna7 from './assets/trivarna/PHOTO-2024-05-09-20-19-15.JPG';
-import trivarna8 from './assets/trivarna/PHOTO-2024-05-09-20-19-16.JPG';
-import trivarna9 from './assets/trivarna/PHOTO-2024-05-25-23-50-42.JPG';
-import trivarna10 from './assets/trivarna/PHOTO-2024-05-27-12-53-39 2.JPG';
-import trivarna11 from './assets/trivarna/PHOTO-2024-05-27-12-53-39 3.JPG';
-import trivarna12 from './assets/trivarna/PHOTO-2024-05-27-12-53-39 4.JPG';
-import trivarna13 from './assets/trivarna/PHOTO-2024-05-27-12-53-39.JPG';
+import {
+  trivarnaImages,
+  retreatImages,
+  seconddraftImages,
+  ashandamberImages,
+  guakImages,
+  malabarroomImages,
+} from './projectImages';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [currentGalleryImage, setCurrentGalleryImage] = useState(0);
+  const [currentProjectId, setCurrentProjectId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [colors] = useState({
     lightBg: '#E9E3DB',
-    darkBg: '#CABBA4',
+    darkBg: '#E9E3DB',
     header: '#ffffff',
     footer: '#212429',
     text: '#531516',
   });
 
-  // Trivarna project images array
-  const trivarnaImages = [
-    trivarna1,
-    trivarna2,
-    trivarna3,
-    trivarna4,
-    trivarna5,
-    trivarna6,
-    trivarna7,
-    trivarna8,
-    trivarna9,
-    trivarna10,
-    trivarna11,
-    trivarna12,
-    trivarna13,
-  ];
-
   const projects = [
     {
       id: 1,
-      title: 'Trivarna',
-      client: 'Private Residence, Bangalore',
+      title: 'Revived Retreat',
+      client: 'Asansol, West Bengal',
       requirement:
-        'A comprehensive interior design project featuring modern aesthetics and functional spaces with emphasis on natural lighting and sustainable materials.',
+        'A cherished family bungalow, lovingly reimagined by the next generation. Our design preserves its nostalgic charm and architectural soul while infusing modern comfort and freshness—creating a warm, timeless retreat where memories and contemporary living beautifully coexist.',
+      completedTime: 'In Progress',
+      images: retreatImages,
+    },
+    {
+      id: 2,
+      title: 'Guak – Indo-Mexican Eatery',
+      client: 'Kolkata, West Bengal',
+      requirement:
+        'A bold fusion of Indian and Mexican flavors, Guak pairs fiery energy with a playful, street-style aesthetic. Earthy textures and vibrant accents create a lively, functional space that celebrates color, culture, and community—turning every quick bite into a full-flavored experience.',
+      completedTime: 'In Progress',
+      images: guakImages,
+    },
+    {
+      id: 3,
+      title: 'Trivarna',
+      client: 'Koderma, Jharkhand',
+      requirement:
+        'This residence is a timeless sanctuary for three generations under one roof, blending refined neoclassical elegance with modern comfort. Across two bedrooms and a shared living space, ornamental mouldings, muted tones, and elegant materials evoke legacy, while thoughtful planning fosters harmony, privacy, and connection for all.',
       completedTime: 'Completed: March 2024',
       images: trivarnaImages,
     },
     {
-      id: 2,
-      title: 'Modern Villa',
-      client: 'Luxury Estate, Mumbai',
+      id: 4,
+      title: 'The Second Draft',
+      client: 'Kolkata, West Bengal',
       requirement:
-        'Contemporary villa design with open-plan living spaces, integrating indoor-outdoor flow and premium finishes throughout.',
-      completedTime: 'Completed: January 2024',
-      images: [], // Placeholder for future images
+        'Once an abandoned factory, now a reimagined office that bridges heritage and modernity. By preserving its raw industrial charm and introducing refined materials, smart layouts, and contemporary details, we transformed a forgotten shell into a vibrant, functional workspace for a forward-looking company.',
+      completedTime: 'Completed: November 2025',
+      images: seconddraftImages,
     },
     {
-      id: 3,
-      title: 'Urban Apartment',
-      client: 'High-rise Residence, Delhi',
+      id: 5,
+      title: 'Ash And Amber',
+      client: 'Kolkata, West Bengal',
       requirement:
-        'Compact urban living space maximizing functionality while maintaining elegant minimalist aesthetics and smart storage solutions.',
-      completedTime: 'Completed: November 2023',
-      images: [], // Placeholder for future images
+        'A harmonious blend of neoclassical elegance and modern restraint, Ash & Amber balances structure with softness. Cool greys and sculpted forms meet warm lighting, golden accents, and tactile textures—creating a sanctuary of quiet luxury where timeless tradition and contemporary sophistication coexist.',
+      completedTime: 'Completed: July 2024',
+      images: ashandamberImages,
+    },
+    {
+      id: 6,
+      title: 'Malabar Room',
+      client: 'Ranchi, Jharkhand',
+      requirement:
+        'This Kerala-inspired living room was designed as part of a holiday home in Ranchi for a Mumbai-based client who wanted a warm, grounded space for his parents and siblings. With a minimal aesthetic and an earthy palette, the space draws from the calm and comforting essence of Kerala homes—using natural materials, wooden textures, and soft light to create a retreat that feels both nostalgic and refreshingly simple.',
+      completedTime: 'In Progress',
+      images: malabarroomImages,
     },
   ];
+
+  // Get current project's images based on project ID
+  const getCurrentProjectImages = () => {
+    const project = projects.find((p) => p.id === currentProjectId);
+    return project ? project.images : [];
+  };
+
+  const currentImages = getCurrentProjectImages();
+  const currentProject = projects.find((p) => p.id === currentProjectId);
 
   const goToGalleryImage = (index) => {
     setCurrentGalleryImage(index);
@@ -86,7 +100,7 @@ function App() {
 
   const nextGalleryImage = () => {
     setCurrentGalleryImage((prev) =>
-      prev < trivarnaImages.length - 1 ? prev + 1 : prev
+      prev < currentImages.length - 1 ? prev + 1 : prev
     );
   };
 
@@ -174,6 +188,21 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [showModal]);
 
+  // Reset thumbnail scroll position when modal opens
+  useEffect(() => {
+    if (showModal) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const container = document.querySelector(
+          '.gallery-thumbnail-container'
+        );
+        if (container) {
+          container.scrollLeft = 0;
+        }
+      }, 50);
+    }
+  }, [showModal]);
+
   return (
     <>
       {/* Loading screen overlay - renders on top of main content */}
@@ -231,16 +260,16 @@ function App() {
             <div className='flex justify-between items-center h-16'>
               {/* Logo - Transitions from white to colored */}
               <div className='flex-shrink-0'>
-                <div className='flex items-center space-x-3'>
+                <div className='flex items-center space-x-3 header-logo-container'>
                   <img
                     src={logo}
                     alt='THE TEXTURE TROVE Logo'
-                    className={`h-15 w-auto transition-all duration-500 ${
+                    className={`header-logo w-auto transition-all duration-500 ${
                       scrolled ? '' : 'brightness-0 invert'
                     }`}
                   />
                   <h1
-                    className='text-2xl font-bold transition-colors duration-500'
+                    className='header-title font-bold transition-colors duration-500 whitespace-nowrap'
                     style={{ color: scrolled ? colors.text : '#ffffff' }}
                   >
                     THE TEXTURE TROVE
@@ -248,7 +277,7 @@ function App() {
                 </div>
               </div>
 
-              {/* Navigation - Fades in on scroll */}
+              {/* Desktop Navigation - Fades in on scroll */}
               <nav
                 className={`hidden md:flex space-x-8 transition-opacity duration-500 ${
                   scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -262,6 +291,20 @@ function App() {
                   Home
                 </a>
                 <a
+                  href='#projects'
+                  className='font-medium opacity-70 hover:opacity-100'
+                  style={{ color: colors.text }}
+                >
+                  Projects
+                </a>
+                <a
+                  href='#about'
+                  className='font-medium opacity-70 hover:opacity-100'
+                  style={{ color: colors.text }}
+                >
+                  About
+                </a>
+                <a
                   href='#contact'
                   className='font-medium opacity-70 hover:opacity-100'
                   style={{ color: colors.text }}
@@ -269,7 +312,80 @@ function App() {
                   Contact
                 </a>
               </nav>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className={`md:hidden flex flex-col justify-center items-center w-8 h-8 transition-opacity duration-500 ${
+                  scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                }`}
+                aria-label='Toggle menu'
+              >
+                <span
+                  className={`block w-6 h-0.5 mb-1.5 transition-all duration-300 ${
+                    mobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                  }`}
+                  style={{ backgroundColor: colors.text }}
+                ></span>
+                <span
+                  className={`block w-6 h-0.5 mb-1.5 transition-all duration-300 ${
+                    mobileMenuOpen ? 'opacity-0' : ''
+                  }`}
+                  style={{ backgroundColor: colors.text }}
+                ></span>
+                <span
+                  className={`block w-6 h-0.5 transition-all duration-300 ${
+                    mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                  }`}
+                  style={{ backgroundColor: colors.text }}
+                ></span>
+              </button>
             </div>
+          </div>
+
+          {/* Mobile Menu Dropdown */}
+          <div
+            className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+              mobileMenuOpen && scrolled
+                ? 'max-h-64 opacity-100'
+                : 'max-h-0 opacity-0'
+            }`}
+            style={{ backgroundColor: colors.header }}
+          >
+            <nav className='flex flex-col space-y-4 px-4 py-6'>
+              <a
+                href='#'
+                onClick={() => setMobileMenuOpen(false)}
+                className='font-medium opacity-70 hover:opacity-100'
+                style={{ color: colors.text }}
+              >
+                Home
+              </a>
+              <a
+                href='#projects'
+                onClick={() => setMobileMenuOpen(false)}
+                className='font-medium opacity-70 hover:opacity-100'
+                style={{ color: colors.text }}
+              >
+                Projects
+              </a>
+              <a
+                href='#about'
+                onClick={() => setMobileMenuOpen(false)}
+                className='font-medium opacity-70 hover:opacity-100'
+                style={{ color: colors.text }}
+              >
+                About
+              </a>
+              <a
+                href='#contact'
+                onClick={() => setMobileMenuOpen(false)}
+                className='font-medium opacity-70 hover:opacity-100'
+                style={{ color: colors.text }}
+              >
+                Contact
+              </a>
+            </nav>
           </div>
         </header>
 
@@ -311,17 +427,11 @@ function App() {
         <div className='min-h-screen'>
           {/* Projects Section */}
           <section
+            id='projects'
             className='relative py-20'
             style={{ backgroundColor: colors.darkBg }}
           >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-              <h2
-                className='text-4xl md:text-5xl font-light mb-16 text-center'
-                style={{ color: colors.text }}
-              >
-                Projects
-              </h2>
-
               <div className='space-y-20'>
                 {projects.map((project, projectIndex) => {
                   const isEven = projectIndex % 2 === 0;
@@ -350,7 +460,7 @@ function App() {
                               className='text-sm font-semibold uppercase tracking-wide opacity-60'
                               style={{ color: colors.text }}
                             >
-                              Client
+                              Location
                             </p>
                             <p
                               className='text-lg mt-1'
@@ -365,10 +475,10 @@ function App() {
                               className='text-sm font-semibold uppercase tracking-wide opacity-60'
                               style={{ color: colors.text }}
                             >
-                              Requirement
+                              Description
                             </p>
                             <p
-                              className='text-base md:text-lg mt-1 leading-relaxed'
+                              className='text-base md:text-lg mt-1 leading-normal text-justify'
                               style={{ color: colors.text }}
                             >
                               {project.requirement}
@@ -394,25 +504,26 @@ function App() {
 
                       {/* Project Images - Order changes based on index */}
                       <div
-                        className={`lg:col-span-8 min-h-[400px] lg:min-h-[500px] ${
+                        className={`lg:col-span-8 ${
                           isEven ? 'lg:order-2' : 'lg:order-1'
                         }`}
                       >
                         {project.images.length > 0 ? (
-                          <div className='w-full h-full grid grid-cols-2 gap-3'>
+                          <div className='project-image-grid'>
                             {project.images.slice(0, 4).map((img, index) => (
                               <div
                                 key={index}
-                                className='relative overflow-hidden rounded-lg shadow-lg cursor-pointer'
+                                className='project-image-item'
                                 onClick={() => {
                                   setCurrentGalleryImage(index);
+                                  setCurrentProjectId(project.id);
                                   setShowModal(true);
                                 }}
                               >
                                 <img
                                   src={img}
                                   alt={`${project.title} ${index + 1}`}
-                                  className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300 ${
+                                  className={`${
                                     index === 3 ? 'brightness-50' : ''
                                   }`}
                                 />
@@ -427,7 +538,10 @@ function App() {
                             ))}
                           </div>
                         ) : (
-                          <div className='w-full h-full bg-gradient-to-br from-stone-200 to-stone-300 rounded-lg flex items-center justify-center'>
+                          <div
+                            className='w-full bg-gradient-to-br from-stone-200 to-stone-300 rounded-lg flex items-center justify-center'
+                            style={{ aspectRatio: '3 / 2', minHeight: '210px' }}
+                          >
                             <span
                               className='text-lg font-medium opacity-50'
                               style={{ color: colors.text }}
@@ -444,15 +558,75 @@ function App() {
             </div>
           </section>
 
-          {/* Trivarna Gallery Fullscreen Carousel */}
-          {showModal && (
+          {/* About Us Section */}
+          <section
+            id='about'
+            className='relative py-20'
+            style={{ backgroundColor: colors.lightBg }}
+          >
+            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+              <h2
+                className='text-4xl md:text-5xl font-light mb-16 text-center md:text-left'
+                style={{ color: colors.text }}
+              >
+                About Us
+              </h2>
+
+              <div className='grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center'>
+                {/* Description */}
+                <div className='lg:col-span-7 lg:order-1 space-y-6 text-base md:text-lg leading-normal text-justify'>
+                  <p style={{ color: colors.text }}>
+                    The Texture Trove is a boutique interior design studio
+                    dedicated to creating elegant, timeless, and deeply
+                    personalized spaces for high-end residential, commercial,
+                    and hospitality clients. With a philosophy rooted in
+                    thoughtful design and a client-first approach, the studio
+                    blends creativity, functionality, and refined aesthetics to
+                    curate spaces that feel meaningful and memorable.
+                  </p>
+
+                  <p style={{ color: colors.text }}>
+                    Led by Principal Designer, Vedica, a fourth-generation
+                    member of a family with a legacy in handmade wooden
+                    furniture craftsmanship, The Texture Trove carries forward a
+                    deep appreciation for quality, detail, and artisanal
+                    heritage.
+                  </p>
+
+                  <p style={{ color: colors.text }}>
+                    From concept and sourcing to technical drawings, project
+                    management, and final styling, The Texture Trove offers
+                    full-scope interior design solutions—ensuring a seamless
+                    journey from vision to reality. Guided by values of
+                    elegance, professionalism, creativity, and timelessness, the
+                    studio is committed to crafting spaces that elevate everyday
+                    living and leave a lasting impression.
+                  </p>
+                </div>
+
+                {/* Logo */}
+                <div className='hidden lg:flex lg:col-span-5 lg:order-2 justify-end'>
+                  <div className='w-96 h-96'>
+                    <img
+                      src={logoSvg}
+                      alt='THE TEXTURE TROVE'
+                      className='w-full h-full object-contain'
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Gallery Fullscreen Carousel */}
+          {showModal && currentProject && (
             <div className='fixed inset-0 bg-black z-50 flex flex-col h-screen w-screen overflow-hidden'>
               {/* Header */}
               <div className='relative flex justify-center items-center p-3 md:p-4 text-white flex-shrink-0'>
                 <h2 className='text-lg md:text-xl font-bold text-center'>
                   <span className='text-gray-300'>Gallery</span>
                   <span className='mx-2'>:</span>
-                  <span className='text-white'>Trivarna</span>
+                  <span className='text-white'>{currentProject.title}</span>
                 </h2>
                 <button
                   onClick={() => setShowModal(false)}
@@ -465,8 +639,8 @@ function App() {
               {/* Main Image Display */}
               <div className='flex-1 relative flex items-center justify-center p-4 sm:p-6 md:p-8 min-h-0'>
                 <img
-                  src={trivarnaImages[currentGalleryImage]}
-                  alt={`Trivarna Project ${currentGalleryImage + 1}`}
+                  src={currentImages[currentGalleryImage]}
+                  alt={`${currentProject.title} ${currentGalleryImage + 1}`}
                   className='max-w-[95%] max-h-[95%]'
                 />
 
@@ -486,13 +660,31 @@ function App() {
               </div>
 
               {/* Thumbnail Navigation */}
-              <div className='p-4 md:p-5 bg-black bg-opacity-80 flex-shrink-0'>
-                <div className='flex justify-start md:justify-center gap-3 md:gap-4 overflow-x-auto py-1'>
-                  {trivarnaImages.map((img, index) => (
+              <div className='p-4 md:p-5 bg-black bg-opacity-80 flex-shrink-0 overflow-hidden'>
+                <div
+                  className='gallery-thumbnail-container flex gap-3 md:gap-4 overflow-x-auto py-1'
+                  ref={(el) => {
+                    if (el && currentGalleryImage >= 0) {
+                      setTimeout(() => {
+                        const activeButton = el.querySelector(
+                          `button:nth-child(${currentGalleryImage + 1})`
+                        );
+                        if (activeButton) {
+                          activeButton.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center',
+                          });
+                        }
+                      }, 0);
+                    }
+                  }}
+                >
+                  {currentImages.map((img, index) => (
                     <button
                       key={index}
                       onClick={() => goToGalleryImage(index)}
-                      className={`flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg transition-all duration-200 ${
+                      className={`gallery-thumbnail-button flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-lg transition-all duration-200 ${
                         currentGalleryImage === index
                           ? 'ring-4 ring-white'
                           : 'ring-2 ring-gray-700 hover:ring-gray-500'
@@ -529,8 +721,7 @@ function App() {
                     <h5 className='text-xl font-bold'>THE TEXTURE TROVE</h5>
                   </div>
                   <p className='text-stone-300'>
-                    Creating beautiful, functional furniture for modern living
-                    spaces since 2020.
+                    Where design is a treasure of touch
                   </p>
                 </div>
 
@@ -542,7 +733,7 @@ function App() {
                   <div className='flex space-x-4'>
                     {/* Instagram */}
                     <a
-                      href='https://instagram.com'
+                      href='https://www.instagram.com/thetexturetrove'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='text-stone-300 hover:text-white transition-colors'
@@ -559,7 +750,7 @@ function App() {
 
                     {/* WhatsApp */}
                     <a
-                      href='https://wa.me/15551234567'
+                      href='https://wa.me/918100355234'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='text-stone-300 hover:text-white transition-colors'
@@ -576,7 +767,7 @@ function App() {
 
                     {/* Google Maps */}
                     <a
-                      href='https://maps.google.com'
+                      href='https://www.google.com/maps/place/Blob+CoWorking+Space/@22.594607,88.3970224,845m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3a02779d39d19c5f:0xa7a3c8ef1f4d6993!8m2!3d22.594607!4d88.3970224!16s%2Fg%2F11rvg7y08r?entry=ttu&g_ep=EgoyMDI1MTEwMi4wIKXMDSoASAFQAw%3D%3D'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='text-stone-300 hover:text-white transition-colors'
@@ -593,7 +784,7 @@ function App() {
 
                     {/* Phone */}
                     <a
-                      href='tel:+15551234567'
+                      href='tel:+918100355234'
                       className='text-stone-300 hover:text-white transition-colors'
                       aria-label='Phone'
                     >
@@ -608,7 +799,7 @@ function App() {
 
                     {/* Email */}
                     <a
-                      href='mailto:info@thetexturetrove.com'
+                      href='mailto:thetexturetrove@gmail.com'
                       className='text-stone-300 hover:text-white transition-colors'
                       aria-label='Email'
                     >
@@ -624,8 +815,9 @@ function App() {
 
                   {/* Contact Details */}
                   <ul className='space-y-2 text-stone-300 text-sm'>
-                    <li>Phone: +1 (555) 123-4567</li>
-                    <li>Email: info@thetexturetrove.com</li>
+                    <li>Phone: +91 81003 55234</li>
+                    <li>Alternate Phone: +91 98365 26633</li>
+                    <li>Email: thetexturetrove@gmail.com</li>
                   </ul>
                 </div>
 
@@ -634,21 +826,21 @@ function App() {
                   <h6 className='font-semibold'>Find Us</h6>
                   <div className='w-full h-48 rounded-lg overflow-hidden'>
                     <iframe
-                      src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1841374555634!2d-73.98823492346618!3d40.75889797138558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus'
+                      src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.8234567890123!2d88.3970224!3d22.594607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02779d39d19c5f:0xa7a3c8ef1f4d6993!2sBlob%20CoWorking%20Space!5e0!3m2!1sen!2sin!4v1234567890123'
                       width='100%'
                       height='100%'
                       style={{ border: 0 }}
                       allowFullScreen=''
                       loading='lazy'
                       referrerPolicy='no-referrer-when-downgrade'
-                      title='Google Maps Location'
+                      title='Blob CoWorking Space Location'
                     ></iframe>
                   </div>
                 </div>
               </div>
 
               <div className='border-t border-stone-700 mt-12 pt-8 text-center text-stone-400'>
-                <p>&copy; 2024 THE TEXTURE TROVE. All rights reserved.</p>
+                <p>&copy; 2025 THE TEXTURE TROVE. All rights reserved.</p>
               </div>
             </div>
           </footer>
