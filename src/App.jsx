@@ -428,10 +428,13 @@ function App() {
         </header>
 
         {/* Landing Hero Section - Magazine Cover */}
-        <section className='relative w-full h-screen overflow-hidden landing-hero-section'>
+        <section
+          className='relative w-full h-screen overflow-hidden landing-hero-section'
+          aria-label='Hero section'
+        >
           <img
             src={landingImage}
-            alt='THE TEXTURE TROVE Landing'
+            alt='Elegant interior design showcase by The Texture Trove - luxury residential and commercial spaces in Kolkata'
             className='w-full h-full object-cover landing-hero-image'
           />
           <div
@@ -449,9 +452,9 @@ function App() {
               style={{ top: '75%', transform: 'translateY(-50%)' }}
             >
               <div className='text-left text-white'>
-                <h1 className='text-5xl md:text-6xl lg:text-7xl font-heading font-light mb-4 tracking-wide landing-text-heading'>
+                <h2 className='text-5xl md:text-6xl lg:text-7xl font-heading font-light mb-4 tracking-wide landing-text-heading'>
                   Reimagining Interiors
-                </h1>
+                </h2>
                 <p className='text-lg md:text-xl lg:text-2xl font-sans font-light opacity-90 landing-text-tagline'>
                   Transforming spaces into timeless expressions of elegance and
                   functionality
@@ -468,16 +471,20 @@ function App() {
             id='projects'
             className='relative py-20'
             style={{ backgroundColor: colors.darkBg }}
+            aria-label='Interior design projects portfolio'
           >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+              <h2 className='sr-only'>Our Interior Design Projects</h2>
               <div className='space-y-20'>
                 {projects.map((project, projectIndex) => {
                   const isEven = projectIndex % 2 === 0;
 
                   return (
-                    <div
+                    <article
                       key={project.id}
                       className='grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12'
+                      itemScope
+                      itemType='https://schema.org/CreativeWork'
                     >
                       {/* Project Information - Order changes based on index */}
                       <div
@@ -488,6 +495,7 @@ function App() {
                         <h3
                           className='text-3xl md:text-4xl font-heading font-light'
                           style={{ color: colors.text }}
+                          itemProp='name'
                         >
                           {project.title}
                         </h3>
@@ -560,10 +568,16 @@ function App() {
                               >
                                 <img
                                   src={img}
-                                  alt={`${project.title} ${index + 1}`}
+                                  alt={`${
+                                    project.title
+                                  } interior design project in ${
+                                    project.client
+                                  } - Image ${index + 1}`}
                                   className={`${
                                     index === 3 ? 'brightness-50' : ''
                                   }`}
+                                  itemProp='image'
+                                  loading={index > 0 ? 'lazy' : 'eager'}
                                 />
                                 {index === 3 && project.images.length > 4 && (
                                   <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
@@ -589,7 +603,7 @@ function App() {
                           </div>
                         )}
                       </div>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
@@ -601,6 +615,9 @@ function App() {
             id='about'
             className='relative pb-20'
             style={{ backgroundColor: colors.lightBg, paddingTop: '10px' }}
+            aria-label='About The Texture Trove'
+            itemScope
+            itemType='https://schema.org/AboutPage'
           >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
               <h2
@@ -612,23 +629,27 @@ function App() {
 
               <div className='grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center'>
                 {/* Description */}
-                <div className='lg:col-span-7 lg:order-1 space-y-6 text-base md:text-lg leading-normal text-justify'>
+                <div
+                  className='lg:col-span-7 lg:order-1 space-y-6 text-base md:text-lg leading-normal text-justify'
+                  itemProp='description'
+                >
                   <p style={{ color: colors.text }}>
-                    The Texture Trove is a boutique interior design studio
-                    dedicated to creating elegant, timeless, and deeply
-                    personalized spaces for high-end residential, commercial,
-                    and hospitality clients. With a philosophy rooted in
-                    thoughtful design and a client-first approach, the studio
-                    blends creativity, functionality, and refined aesthetics to
-                    curate spaces that feel meaningful and memorable.
+                    <strong>The Texture Trove</strong> is a boutique interior
+                    design studio dedicated to creating elegant, timeless, and
+                    deeply personalized spaces for high-end residential,
+                    commercial, and hospitality clients. With a philosophy
+                    rooted in thoughtful design and a client-first approach, the
+                    studio blends creativity, functionality, and refined
+                    aesthetics to curate spaces that feel meaningful and
+                    memorable.
                   </p>
 
                   <p style={{ color: colors.text }}>
-                    Led by Principal Designer, Vedica, a fourth-generation
-                    member of a family with a legacy in handmade wooden
-                    furniture craftsmanship, The Texture Trove carries forward a
-                    deep appreciation for quality, detail, and artisanal
-                    heritage.
+                    Led by Principal Designer, <strong>Vedica</strong>, a
+                    fourth-generation member of a family with a legacy in
+                    handmade wooden furniture craftsmanship, The Texture Trove
+                    carries forward a deep appreciation for quality, detail, and
+                    artisanal heritage.
                   </p>
 
                   <p style={{ color: colors.text }}>
@@ -647,8 +668,9 @@ function App() {
                   <div className='w-96 h-96'>
                     <img
                       src={logoSvg}
-                      alt='THE TEXTURE TROVE'
+                      alt='The Texture Trove logo - Boutique interior design studio in Kolkata'
                       className='w-full h-full object-contain'
+                      itemProp='logo'
                     />
                   </div>
                 </div>
@@ -678,7 +700,11 @@ function App() {
               <div className='flex-1 relative flex items-center justify-center p-4 sm:p-6 md:p-8 min-h-0'>
                 <img
                   src={currentImages[currentGalleryImage]}
-                  alt={`${currentProject.title} ${currentGalleryImage + 1}`}
+                  alt={`${currentProject.title} interior design project in ${
+                    currentProject.client
+                  } - Gallery image ${currentGalleryImage + 1} of ${
+                    currentImages.length
+                  }`}
                   className='max-w-[95%] max-h-[95%]'
                 />
 
@@ -747,22 +773,32 @@ function App() {
             id='contact'
             className='text-white py-16'
             style={{ backgroundColor: colors.footer }}
+            itemScope
+            itemType='https://schema.org/WPFooter'
           >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
               <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
                 {/* Company Info */}
-                <div className='space-y-4'>
+                <div
+                  className='space-y-4'
+                  itemScope
+                  itemType='https://schema.org/Organization'
+                >
                   <div className='flex items-center space-x-3'>
                     <img
                       src={logo}
-                      alt='THE TEXTURE TROVE Logo'
+                      alt='The Texture Trove logo - Interior design studio'
                       className='h-12 w-auto'
+                      itemProp='logo'
                     />
-                    <h5 className='text-xl font-heading font-bold'>
+                    <h3
+                      className='text-xl font-heading font-bold'
+                      itemProp='name'
+                    >
                       THE TEXTURE TROVE
-                    </h5>
+                    </h3>
                   </div>
-                  <p className='text-stone-300'>
+                  <p className='text-stone-300' itemProp='slogan'>
                     Where design is a treasure of touch
                   </p>
                   <a
@@ -770,6 +806,7 @@ function App() {
                     target='_blank'
                     rel='noopener noreferrer'
                     className='inline-flex items-center gap-2 text-stone-300 hover:text-white transition-colors'
+                    aria-label='View our portfolio on Google Drive'
                   >
                     <span>Know more about us, click to view Portfolio</span>
                     <svg
@@ -778,6 +815,7 @@ function App() {
                       stroke='currentColor'
                       viewBox='0 0 24 24'
                       xmlns='http://www.w3.org/2000/svg'
+                      aria-hidden='true'
                     >
                       <path
                         strokeLinecap='round'
@@ -790,7 +828,7 @@ function App() {
                 </div>
 
                 {/* Socials & Contact */}
-                <div className='space-y-4' style={{paddingTop : '10px'}}>
+                <div className='space-y-4' style={{ paddingTop: '10px' }}>
                   <h6 className='font-semibold'>Connect With Us</h6>
 
                   {/* Social Media Icons */}
@@ -886,7 +924,7 @@ function App() {
                 </div>
 
                 {/* Google Map */}
-                <div className='space-y-4' style={{paddingTop : '10px'}}>
+                <div className='space-y-4' style={{ paddingTop: '10px' }}>
                   <h6 className='font-semibold'>Find Us</h6>
                   <div className='w-full h-48 rounded-lg overflow-hidden'>
                     <iframe
