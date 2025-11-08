@@ -40,16 +40,29 @@
 
 ## Deployment Steps
 
+### For GitHub Pages (Recommended)
+
+1. **Push to Main Branch**
+
+   ```bash
+   git add .
+   git commit -m "Deploy with jsDelivr optimization"
+   git push origin main
+   ```
+
+2. **GitHub Actions Deploys Automatically**
+
+   - Workflow is already configured in `.github/workflows/main.yml`
+   - No environment variables needed!
+
+3. **Verify**
+   - Visit your GitHub Pages URL
+   - Check Network tab for cdn.jsdelivr.net requests
+   - Run PageSpeed Insights
+
 ### For Vercel
 
-1. **Set Environment Variable**
-
-   ```
-   Dashboard → Settings → Environment Variables
-   Add: VITE_IMAGE_MODE = JSDELIVR
-   ```
-
-2. **Deploy**
+1. **Deploy**
 
    ```bash
    git push origin main
@@ -57,21 +70,16 @@
    vercel --prod
    ```
 
-3. **Verify**
+   No environment variables needed!
+
+2. **Verify**
    - Visit deployed URL
    - Check Network tab for cdn.jsdelivr.net requests
    - Run PageSpeed Insights
 
 ### For Netlify
 
-1. **Set Environment Variable**
-
-   ```
-   Dashboard → Site Settings → Build & Deploy → Environment
-   Add: VITE_IMAGE_MODE = JSDELIVR
-   ```
-
-2. **Deploy**
+1. **Deploy**
 
    ```bash
    git push origin main
@@ -79,29 +87,26 @@
    netlify deploy --prod
    ```
 
-3. **Verify**
+   No environment variables needed!
+
+2. **Verify**
    - Visit deployed URL
    - Check Network tab for cdn.jsdelivr.net requests
    - Run PageSpeed Insights
 
 ### For Other Hosting Providers
 
-1. **Set Environment Variable**
-
-   - Add `VITE_IMAGE_MODE=JSDELIVR` to your hosting environment
-   - Refer to your hosting provider's documentation
-
-2. **Build Locally**
+1. **Build Locally**
 
    ```bash
-   VITE_IMAGE_MODE=JSDELIVR npm run build
+   npm run build
    ```
 
-3. **Upload**
+2. **Upload**
 
    - Upload the `dist` folder to your hosting provider
 
-4. **Verify**
+3. **Verify**
    - Visit deployed URL
    - Check Network tab for cdn.jsdelivr.net requests
 
@@ -217,10 +222,16 @@ If issues occur, you can quickly rollback:
 
 ### Option 1: Disable jsDelivr (Quick)
 
-```bash
-# Set environment variable to LOCAL
-VITE_IMAGE_MODE=LOCAL npm run build
+Edit `src/config/imageConfig.js`:
 
+```javascript
+mode: 'LOCAL',  // Force local mode
+```
+
+Then rebuild and redeploy:
+
+```bash
+npm run build
 # Redeploy
 ```
 
