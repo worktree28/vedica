@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import logo from './assets/logo.png';
 import logoSvg from './assets/logo.svg';
-import landingImage from './assets/landing.JPG';
+import landingImage from './assets/landing.jpeg';
 import {
   trivarnaImages,
   retreatImages,
@@ -20,6 +20,7 @@ function App() {
   const [loadingComplete, setLoadingComplete] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shouldCenterThumbnails, setShouldCenterThumbnails] = useState(true);
   const [colors] = useState({
     lightBg: '#E9E3DB',
     darkBg: '#E9E3DB',
@@ -44,7 +45,7 @@ function App() {
       client: 'Kolkata, West Bengal',
       requirement:
         'A bold fusion of Indian and Mexican flavors, Guak pairs fiery energy with a playful, street-style aesthetic. Earthy textures and vibrant accents create a lively, functional space that celebrates color, culture, and community—turning every quick bite into a full-flavored experience.',
-      completedTime: 'In Progress',
+      completedTime: 'Completed: March 2025',
       images: guakImages,
     },
     {
@@ -203,6 +204,43 @@ function App() {
     }
   }, [showModal]);
 
+  // Calculate if thumbnails should be centered based on viewport width
+  useEffect(() => {
+    const calculateThumbnailAlignment = () => {
+      const currentImages = currentProjectId
+        ? projects.find((p) => p.id === currentProjectId)?.images || []
+        : [];
+
+      if (currentImages.length === 0) {
+        setShouldCenterThumbnails(true);
+        return;
+      }
+
+      const viewportWidth = window.innerWidth;
+      // Thumbnail width: 48px (mobile) or 64px (desktop) + gap: 12px (mobile) or 16px (desktop)
+      const isMobile = viewportWidth < 768;
+      const thumbnailWidth = isMobile ? 48 : 64;
+      const gap = isMobile ? 12 : 16;
+      const padding = viewportWidth * 0.015; // 0.75vw on each side
+
+      // Calculate total width needed for all thumbnails
+      const totalThumbnailsWidth =
+        currentImages.length * thumbnailWidth +
+        (currentImages.length - 1) * gap +
+        padding * 2;
+
+      // Center only if thumbnails fit within viewport
+      setShouldCenterThumbnails(totalThumbnailsWidth <= viewportWidth);
+    };
+
+    calculateThumbnailAlignment();
+
+    // Recalculate on window resize
+    window.addEventListener('resize', calculateThumbnailAlignment);
+    return () =>
+      window.removeEventListener('resize', calculateThumbnailAlignment);
+  }, [showModal, currentProjectId, projects]);
+
   return (
     <>
       {/* Loading screen overlay - renders on top of main content */}
@@ -230,7 +268,7 @@ function App() {
             {/* Animated Text */}
             <div className='loader-text-wrapper'>
               <h2
-                className='text-3xl md:text-4xl lg:text-5xl font-light tracking-wide mb-4'
+                className='text-3xl md:text-4xl lg:text-5xl font-heading font-light tracking-wide mb-4'
                 style={{ color: colors.text }}
               >
                 THE TEXTURE TROVE
@@ -411,10 +449,10 @@ function App() {
               style={{ top: '75%', transform: 'translateY(-50%)' }}
             >
               <div className='text-left text-white'>
-                <h1 className='text-5xl md:text-6xl lg:text-7xl font-light mb-4 tracking-wide landing-text-heading'>
+                <h1 className='text-5xl md:text-6xl lg:text-7xl font-heading font-light mb-4 tracking-wide landing-text-heading'>
                   Reimagining Interiors
                 </h1>
-                <p className='text-lg md:text-xl lg:text-2xl font-light opacity-90 landing-text-tagline'>
+                <p className='text-lg md:text-xl lg:text-2xl font-sans font-light opacity-90 landing-text-tagline'>
                   Transforming spaces into timeless expressions of elegance and
                   functionality
                 </p>
@@ -448,7 +486,7 @@ function App() {
                         }`}
                       >
                         <h3
-                          className='text-3xl md:text-4xl font-light'
+                          className='text-3xl md:text-4xl font-heading font-light'
                           style={{ color: colors.text }}
                         >
                           {project.title}
@@ -561,12 +599,12 @@ function App() {
           {/* About Us Section */}
           <section
             id='about'
-            className='relative py-20'
-            style={{ backgroundColor: colors.lightBg }}
+            className='relative pb-20'
+            style={{ backgroundColor: colors.lightBg, paddingTop: '10px' }}
           >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
               <h2
-                className='text-4xl md:text-5xl font-light mb-16 text-center md:text-left'
+                className='text-4xl md:text-5xl font-heading font-light mb-16 text-center md:text-left'
                 style={{ color: colors.text }}
               >
                 About Us
@@ -623,7 +661,7 @@ function App() {
             <div className='fixed inset-0 bg-black z-50 flex flex-col h-screen w-screen overflow-hidden'>
               {/* Header */}
               <div className='relative flex justify-center items-center p-3 md:p-4 text-white flex-shrink-0'>
-                <h2 className='text-lg md:text-xl font-bold text-center'>
+                <h2 className='text-lg md:text-xl font-heading font-bold text-center'>
                   <span className='text-gray-300'>Gallery</span>
                   <span className='mx-2'>:</span>
                   <span className='text-white'>{currentProject.title}</span>
@@ -662,7 +700,9 @@ function App() {
               {/* Thumbnail Navigation */}
               <div className='p-4 md:p-5 bg-black bg-opacity-80 flex-shrink-0 overflow-hidden'>
                 <div
-                  className='gallery-thumbnail-container flex gap-3 md:gap-4 overflow-x-auto py-1'
+                  className={`gallery-thumbnail-container flex gap-3 md:gap-4 overflow-x-auto py-1 ${
+                    !shouldCenterThumbnails ? 'many-images' : ''
+                  }`}
                   ref={(el) => {
                     if (el && currentGalleryImage >= 0) {
                       setTimeout(() => {
@@ -718,15 +758,39 @@ function App() {
                       alt='THE TEXTURE TROVE Logo'
                       className='h-12 w-auto'
                     />
-                    <h5 className='text-xl font-bold'>THE TEXTURE TROVE</h5>
+                    <h5 className='text-xl font-heading font-bold'>
+                      THE TEXTURE TROVE
+                    </h5>
                   </div>
                   <p className='text-stone-300'>
                     Where design is a treasure of touch
                   </p>
+                  <a
+                    href='http://drive.google.com/file/d/1GcIegbXvzVAXyQad9ZygSDEiAXnl3Mfi/view'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='inline-flex items-center gap-2 text-stone-300 hover:text-white transition-colors'
+                  >
+                    <span>Know more about us, click to view Portfolio</span>
+                    <svg
+                      className='w-4 h-4'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                      xmlns='http://www.w3.org/2000/svg'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                      />
+                    </svg>
+                  </a>
                 </div>
 
                 {/* Socials & Contact */}
-                <div className='space-y-4'>
+                <div className='space-y-4' style={{paddingTop : '10px'}}>
                   <h6 className='font-semibold'>Connect With Us</h6>
 
                   {/* Social Media Icons */}
@@ -822,7 +886,7 @@ function App() {
                 </div>
 
                 {/* Google Map */}
-                <div className='space-y-4'>
+                <div className='space-y-4' style={{paddingTop : '10px'}}>
                   <h6 className='font-semibold'>Find Us</h6>
                   <div className='w-full h-48 rounded-lg overflow-hidden'>
                     <iframe

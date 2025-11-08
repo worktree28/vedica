@@ -8,6 +8,8 @@ export default {
     extend: {
       fontFamily: {
         'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        'serif': ['Playfair Display', 'Georgia', 'serif'],
+        'heading': ['Playfair Display', 'Georgia', 'serif'],
       },
       colors: {
         // Custom colors that match your existing stone theme
@@ -34,7 +36,7 @@ export default {
       {
         vedica: {
           "primary": "#78716c",
-          "primary-focus": "#57534e", 
+          "primary-focus": "#57534e",
           "primary-content": "#ffffff",
           "secondary": "#e7e5e4",
           "secondary-focus": "#d6d3d1",

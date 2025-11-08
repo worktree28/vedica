@@ -1,34 +1,42 @@
 // Import Trivarna project images
-import trivarna1 from './assets/trivarna/PHOTO-2024-04-26-17-03-33 2.JPG';
-import trivarna2 from './assets/trivarna/PHOTO-2024-04-26-17-03-33.JPG';
-import trivarna3 from './assets/trivarna/PHOTO-2024-04-26-17-03-34.JPG';
-import trivarna4 from './assets/trivarna/PHOTO-2024-04-26-17-03-35.JPG';
-import trivarna5 from './assets/trivarna/PHOTO-2024-05-09-20-19-15 2.JPG';
-import trivarna6 from './assets/trivarna/PHOTO-2024-05-09-20-19-15 3.JPG';
-import trivarna7 from './assets/trivarna/PHOTO-2024-05-09-20-19-15.JPG';
-import trivarna8 from './assets/trivarna/PHOTO-2024-05-09-20-19-16.JPG';
-import trivarna9 from './assets/trivarna/PHOTO-2024-05-25-23-50-42.JPG';
-import trivarna10 from './assets/trivarna/PHOTO-2024-05-27-12-53-39 2.JPG';
-import trivarna11 from './assets/trivarna/PHOTO-2024-05-27-12-53-39 3.JPG';
-import trivarna12 from './assets/trivarna/PHOTO-2024-05-27-12-53-39 4.JPG';
-import trivarna13 from './assets/trivarna/PHOTO-2024-05-27-12-53-39.JPG';
+import trivarna1 from './assets/trivarna/p1.JPG';
+import trivarna2 from './assets/trivarna/p2.JPG';
+import trivarna3 from './assets/trivarna/p3.JPG';
+import trivarna4 from './assets/trivarna/p4.JPG';
+import trivarna5 from './assets/trivarna/p5.JPG';
+import trivarna6 from './assets/trivarna/p6.JPG';
+import trivarna7 from './assets/trivarna/p7.JPG';
+import trivarna8 from './assets/trivarna/p8.JPG';
+import trivarna9 from './assets/trivarna/p9.JPG';
+import trivarna10 from './assets/trivarna/p10.JPG';
+import trivarna11 from './assets/trivarna/p11.JPG';
+import trivarna12 from './assets/trivarna/p12.JPG';
+import trivarna13 from './assets/trivarna/p13.JPG';
 
 // Import Revised Retreat project images
-import retreat1 from './assets/retreat/PHOTO-2024-11-27-21-59-50 2.JPG';
-import retreat2 from './assets/retreat/PHOTO-2024-11-27-21-59-50 3.JPG';
-import retreat3 from './assets/retreat/PHOTO-2024-11-27-21-59-50.JPG';
-import retreat4 from './assets/retreat/PHOTO-2024-11-27-21-59-51.JPG';
-import retreat5 from './assets/retreat/V_01.JPG';
-import retreat6 from './assets/retreat/V_01_1.JPG';
-import retreat7 from './assets/retreat/V_02.JPG';
-import retreat8 from './assets/retreat/V_03.JPG';
-import retreat9 from './assets/retreat/V_03_1.JPG';
-import retreat10 from './assets/retreat/V_04.JPG';
-import retreat11 from './assets/retreat/V_05.JPG';
-import retreat12 from './assets/retreat/48d16f22-50d3-414f-9942-965ed220f4c1.jpeg';
-import retreat13 from './assets/retreat/2513a899-81e9-4d65-80f5-6a0081bcd0f8.jpeg';
-import retreat14 from './assets/retreat/64234df3-1af5-461d-b94c-e31276addfb3.jpeg';
-import retreat15 from './assets/retreat/b8a75297-0eb6-4244-98a4-d249af2f3ce5.jpeg';
+import retreat1 from './assets/retreat/p1.JPG';
+import retreat2 from './assets/retreat/p2.JPG';
+import retreat3 from './assets/retreat/p3.JPG';
+import retreat4 from './assets/retreat/p4.JPG';
+import retreat6 from './assets/retreat/p6.JPG';
+import retreat7 from './assets/retreat/p7.JPG';
+import retreat8 from './assets/retreat/p8.JPG';
+import retreat9 from './assets/retreat/p9.JPG';
+import retreat10 from './assets/retreat/p10.JPG';
+import retreat11 from './assets/retreat/p11.JPG';
+import retreat13 from './assets/retreat/p13.JPG';
+import retreat14 from './assets/retreat/p14.JPG';
+import retreat15 from './assets/retreat/p15.JPG';
+import retreat16 from './assets/retreat/p16.JPG';
+import retreat17 from './assets/retreat/p17.JPG';
+import retreat18 from './assets/retreat/p18.JPG';
+import retreat19 from './assets/retreat/p19.JPG';
+import retreat20 from './assets/retreat/p20.JPG';
+import retreat21 from './assets/retreat/p21.JPG';
+import retreat22 from './assets/retreat/p22.JPG';
+import retreat23 from './assets/retreat/p23.JPG';
+import retreat24 from './assets/retreat/p24.JPG';
+import retreat25 from './assets/retreat/p25.JPG';
 
 // Import The Second Draft project images
 import seconddraft1 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 2.jpeg';
@@ -64,44 +72,51 @@ import malabarroom6 from './assets/themalabarroom/e74e1f0a-75a9-43c4-924c-c63117
 
 // Trivarna project images array
 const trivarnaImages = [
-  trivarna5,
-  trivarna12,
-  trivarna11,
-  trivarna7,
+  trivarna1,
+  trivarna2,
   trivarna3,
   trivarna4,
+  trivarna5,
   trivarna6,
+  trivarna7,
   trivarna8,
-  trivarna1,
   trivarna9,
   trivarna10,
+  trivarna11,
+  trivarna12,
   trivarna13,
-  trivarna2,
-
 ];
 
 // Revised Retreat project images array
 const retreatImages = [
+  retreat1,
+  retreat2,
   retreat3,
   retreat4,
   retreat6,
-  retreat2,
-  retreat1,
-  retreat5,
   retreat7,
   retreat8,
   retreat9,
   retreat10,
   retreat11,
-  retreat12,
   retreat13,
   retreat14,
   retreat15,
+  retreat16,
+  retreat17,
+  retreat18,
+  retreat19,
+  retreat20,
+  retreat21,
+  retreat22,
+  retreat23,
+  retreat24,
+  retreat25,
 ];
 
 // The Second Draft project images array
 const seconddraftImages = [
-    seconddraft5,
+  seconddraft5,
   seconddraft6,
   seconddraft7,
   seconddraft2,
