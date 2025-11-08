@@ -109,6 +109,22 @@ function App() {
     setCurrentGalleryImage((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
+  // Smooth scroll to section with offset for fixed header
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const headerOffset = 80; // Height of fixed header
+      const elementPosition = section.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   // Apply colors to CSS custom properties
   useEffect(() => {
     const root = document.documentElement;
@@ -323,28 +339,44 @@ function App() {
               >
                 <a
                   href='#'
-                  className='font-medium opacity-70 hover:opacity-100'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                   style={{ color: colors.text }}
                 >
                   Home
                 </a>
                 <a
                   href='#projects'
-                  className='font-medium opacity-70 hover:opacity-100'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection('projects');
+                  }}
+                  className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                   style={{ color: colors.text }}
                 >
                   Projects
                 </a>
                 <a
                   href='#about'
-                  className='font-medium opacity-70 hover:opacity-100'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection('about');
+                  }}
+                  className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                   style={{ color: colors.text }}
                 >
                   About
                 </a>
                 <a
                   href='#contact'
-                  className='font-medium opacity-70 hover:opacity-100'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection('contact');
+                  }}
+                  className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                   style={{ color: colors.text }}
                 >
                   Contact
@@ -393,32 +425,48 @@ function App() {
             <nav className='flex flex-col space-y-4 px-4 py-6'>
               <a
                 href='#'
-                onClick={() => setMobileMenuOpen(false)}
-                className='font-medium opacity-70 hover:opacity-100'
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                 style={{ color: colors.text }}
               >
                 Home
               </a>
               <a
                 href='#projects'
-                onClick={() => setMobileMenuOpen(false)}
-                className='font-medium opacity-70 hover:opacity-100'
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  scrollToSection('projects');
+                }}
+                className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                 style={{ color: colors.text }}
               >
                 Projects
               </a>
               <a
                 href='#about'
-                onClick={() => setMobileMenuOpen(false)}
-                className='font-medium opacity-70 hover:opacity-100'
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  scrollToSection('about');
+                }}
+                className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                 style={{ color: colors.text }}
               >
                 About
               </a>
               <a
                 href='#contact'
-                onClick={() => setMobileMenuOpen(false)}
-                className='font-medium opacity-70 hover:opacity-100'
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  scrollToSection('contact');
+                }}
+                className='font-medium opacity-70 hover:opacity-100 cursor-pointer'
                 style={{ color: colors.text }}
               >
                 Contact

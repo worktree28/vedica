@@ -1,4 +1,16 @@
-// Import Trivarna project images
+/**
+ * Project Images Configuration
+ *
+ * This file manages all project images with support for both:
+ * 1. Local imports (development) - Vite handles bundling
+ * 2. jsDelivr CDN (production) - Fast global delivery
+ *
+ * To switch between modes, set VITE_IMAGE_MODE environment variable:
+ * - LOCAL: Use local imports (default for development)
+ * - JSDELIVR: Use jsDelivr CDN (recommended for production)
+ */
+
+// Import local images for development (Vite will bundle these)
 import trivarna1 from './assets/trivarna/p1.JPG';
 import trivarna2 from './assets/trivarna/p2.JPG';
 import trivarna3 from './assets/trivarna/p3.JPG';
@@ -13,7 +25,6 @@ import trivarna11 from './assets/trivarna/p11.JPG';
 import trivarna12 from './assets/trivarna/p12.JPG';
 import trivarna13 from './assets/trivarna/p13.JPG';
 
-// Import Revised Retreat project images
 import retreat1 from './assets/retreat/p1.JPG';
 import retreat2 from './assets/retreat/p2.JPG';
 import retreat3 from './assets/retreat/p3.JPG';
@@ -30,15 +41,14 @@ import retreat15 from './assets/retreat/p15.JPG';
 import retreat16 from './assets/retreat/p16.JPG';
 import retreat17 from './assets/retreat/p17.JPG';
 import retreat18 from './assets/retreat/p18.JPG';
-import retreat19 from './assets/retreat/p19.JPG';
-import retreat20 from './assets/retreat/p20.JPG';
-import retreat21 from './assets/retreat/p21.JPG';
-import retreat22 from './assets/retreat/p22.JPG';
-import retreat23 from './assets/retreat/p23.JPG';
-import retreat24 from './assets/retreat/p24.JPG';
-import retreat25 from './assets/retreat/p25.JPG';
+import retreat19 from './assets/retreat/p19.jpg';
+import retreat20 from './assets/retreat/p20.jpg';
+import retreat21 from './assets/retreat/p21.jpg';
+import retreat22 from './assets/retreat/p22.jpg';
+import retreat23 from './assets/retreat/p23.jpg';
+import retreat24 from './assets/retreat/p24.jpg';
+import retreat25 from './assets/retreat/p25.jpg';
 
-// Import The Second Draft project images
 import seconddraft1 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 2.jpeg';
 import seconddraft2 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 3.jpeg';
 import seconddraft3 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 4.jpeg';
@@ -47,14 +57,12 @@ import seconddraft5 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 6.jpeg'
 import seconddraft6 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 7.jpeg';
 import seconddraft7 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57.jpeg';
 
-// Import Ash And Amber project images
 import ashandamber1 from "./assets/ashandamber/VEDICA'S ROOM-1.jpg";
 import ashandamber2 from "./assets/ashandamber/VEDICA'S ROOM-2.jpg";
 import ashandamber3 from "./assets/ashandamber/VEDICA'S ROOM-3.jpg";
 import ashandamber4 from "./assets/ashandamber/VEDICA'S ROOM-4.jpg";
 import ashandamber5 from "./assets/ashandamber/VEDICA'S ROOM-5.jpg";
 
-// Import Guak – Indo-Mexican Eatery project images
 import guak1 from './assets/guak/44752329-4664-4949-8ebf-ae74f7471ead.JPG';
 import guak2 from './assets/guak/IMG_0097.JPG';
 import guak3 from './assets/guak/IMG_0098.JPG';
@@ -62,7 +70,6 @@ import guak4 from './assets/guak/IMG_0099.JPG';
 import guak5 from './assets/guak/IMG_0100.JPG';
 import guak6 from './assets/guak/IMG_0101.JPG';
 
-// Import Malabar Room project images
 import malabarroom1 from './assets/themalabarroom/525b7e13-6afd-48f2-a6ee-5d4d3e0863dd.JPG';
 import malabarroom2 from './assets/themalabarroom/56f4c8ed-8d6a-4967-b778-5bc10afd6b7c.JPG';
 import malabarroom3 from './assets/themalabarroom/5fb231ac-5df5-44ff-b7d3-cf04e6f7c9f3.JPG';
