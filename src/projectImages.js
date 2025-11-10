@@ -48,6 +48,10 @@ import retreat22 from './assets/retreat/p22.JPG';
 import retreat23 from './assets/retreat/p23.JPG';
 import retreat24 from './assets/retreat/p24.JPG';
 import retreat25 from './assets/retreat/p25.JPG';
+import retreat26 from './assets/retreat/p26.jpeg';
+import retreat27 from './assets/retreat/p27.jpeg';
+import retreat28 from './assets/retreat/p28.jpeg';
+import retreat29 from './assets/retreat/p29.jpeg';
 
 import seconddraft1 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 2.jpeg';
 import seconddraft2 from './assets/seconddraft/PHOTO-2025-06-15-11-45-57 3.jpeg';
@@ -119,6 +123,10 @@ const retreatImages = [
   retreat23,
   retreat24,
   retreat25,
+  retreat26,
+  retreat27,
+  retreat28,
+  retreat29,
 ];
 
 // The Second Draft project images array
